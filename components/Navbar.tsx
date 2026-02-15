@@ -56,7 +56,7 @@ export default function Navbar() {
                     className="hidden md:block"
                 >
                     <a href="#contact" className="px-6 py-2 rounded-full bg-accent hover:bg-accent/80 transition-all font-semibold text-sm">
-                        Let's Talk
+                        Let&apos;s Talk
                     </a>
                 </motion.div>
 

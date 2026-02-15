@@ -46,10 +46,10 @@ export async function POST(req: Request) {
         const data = await req.json();
 
         if (data.personal) {
-            await PersonalInfo.findOneAndUpdate({}, data.personal, { upsert: true });
+            await PersonalInfo.findOneAndUpdate({} as any, data.personal, { upsert: true, new: true } as any);
         }
         if (data.about) {
-            await About.findOneAndUpdate({}, data.about, { upsert: true });
+            await About.findOneAndUpdate({} as any, data.about, { upsert: true, new: true } as any);
         }
 
         // For arrays, reconcile based on the provided data

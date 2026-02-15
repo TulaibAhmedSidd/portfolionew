@@ -117,26 +117,26 @@ export async function GET() {
         ];
 
         // Upsert All
-        await PersonalInfo.findOneAndUpdate({}, personalData, { upsert: true });
-        await About.findOneAndUpdate({}, aboutData, { upsert: true });
+        await PersonalInfo.findOneAndUpdate({} as any, personalData, { upsert: true } as any);
+        await About.findOneAndUpdate({} as any, aboutData, { upsert: true } as any);
 
         await Skill.deleteMany({});
-        await Skill.insertMany(skillsData);
+        await Skill.insertMany(skillsData as any);
 
         await Experience.deleteMany({});
-        await Experience.insertMany(experienceData);
+        await Experience.insertMany(experienceData as any);
 
         await Project.deleteMany({});
-        await Project.insertMany(projectsData);
+        await Project.insertMany(projectsData as any);
 
         await SocialLink.deleteMany({});
-        await SocialLink.insertMany(socialLinksData);
+        await SocialLink.insertMany(socialLinksData as any);
 
         await Achievement.deleteMany({});
-        await Achievement.insertMany(achievementsData);
+        await Achievement.insertMany(achievementsData as any);
 
         await Certification.deleteMany({});
-        await Certification.insertMany(certificationsData);
+        await Certification.insertMany(certificationsData as any);
 
         return NextResponse.json({ message: 'Seed successful with Achievements and Certifications' });
     } catch (error: any) {

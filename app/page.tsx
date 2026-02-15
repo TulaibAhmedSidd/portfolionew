@@ -219,9 +219,9 @@ export default async function Home() {
         <div className="max-w-7xl mx-auto">
           <div className="grid md:grid-cols-2 gap-16">
             <div>
-              <h2 className="text-4xl md:text-6xl font-bold mb-8">Let's build something <span className="text-accent">extraordinary</span>.</h2>
+              <h2 className="text-4xl md:text-6xl font-bold mb-8">Let&apos;s build something <span className="text-accent">extraordinary</span>.</h2>
               <p className="text-slate-400 mb-12 text-lg">
-                I'm currently available for freelance projects and full-time opportunities. Reach out and let's start a conversation.
+                I&apos;m currently available for freelance projects and full-time opportunities. Reach out and let&apos;s start a conversation.
               </p>
 
               <div className="space-y-6">
