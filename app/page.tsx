@@ -1,41 +1,16 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import ProjectCard from "@/components/ProjectCard";
-import { PersonalInfo, About, Project, Skill, Experience, SocialLink, Achievement, Certification } from "@/models/Portfolio";
-import connectDB from "@/lib/mongodb";
 import { Mail, Phone, MapPin, Linkedin, Github, ExternalLink, Cpu, Layout, Server, Database, Award, BookOpen } from "lucide-react";
 import ContactForm from "@/components/ContactForm";
 import Image from "next/image";
 
-export const revalidate = 3600;
-
-async function getData() {
-  await connectDB();
-  const [personal, about, projects, skills, experiences, socials, achievements, certifications] = await Promise.all([
-    PersonalInfo.findOne().lean(),
-    About.findOne().lean(),
-    Project.find().sort({ createdAt: -1 }).lean(),
-    Skill.find().sort({ category: 1, level: -1 }).lean(),
-    Experience.find().sort({ startDate: -1 }).lean(),
-    SocialLink.find().lean(),
-    Achievement.find().sort({ date: -1 }).lean(),
-    Certification.find().sort({ date: -1 }).lean(),
-  ]);
-
-  return JSON.parse(JSON.stringify({
-    personal,
-    about,
-    projects: projects || [],
-    skills: skills || [],
-    experiences: experiences || [],
-    socials: socials || [],
-    achievements: achievements || [],
-    certifications: certifications || [],
-  }));
-}
-
-export default async function Home() {
-  const data = await getData();
+export default function Home() {
+  const [data, setData] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
 
   const skillCategories = [
     { name: 'Frontend', icon: <Layout className="text-accent" /> },
@@ -43,6 +18,27 @@ export default async function Home() {
     { name: 'Creative', icon: <Cpu className="text-accent" /> },
     { name: 'Tools', icon: <Database className="text-accent" /> },
   ];
+
+  useEffect(() => {
+    fetch("/api/content", { cache: "no-store" })
+      .then((res) => res.json())
+      .then((json) => {
+        setData(json);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error("Failed to fetch content:", err);
+        setLoading(false);
+      });
+  }, []);
+
+  if (loading || !data) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-slate-950">
+        <div className="text-accent animate-pulse text-xl font-bold">Loading Portfolio...</div>
+      </div>
+    );
+  }
 
   return (
     <div className="relative">
